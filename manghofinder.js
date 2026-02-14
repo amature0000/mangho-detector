@@ -170,5 +170,5 @@
 
     // --------------------------
     foregroundScanner();
-    setTimeout(backgroundScanner, SCAN_INTERVAL); // 최초 딜레이 부여
+    setTimeout(backgroundScanner, 1000); // 최초 딜레이 부여
 })();
