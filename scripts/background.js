@@ -34,13 +34,11 @@ async function extractLobbyLink(postId) {
     const response = await fetch(viewUrl);
     const html = await response.text();
     
-    // steam://joinlobby 직접 링크 찾기
     const lobbyMatch = html.match(/steam:\/\/joinlobby\/\d+\/\d+/);
     // console.log(`[SEAF] 로비 링크 추출 시도 (${postId}):`, lobbyMatch[0]);
     if (lobbyMatch) {
       return lobbyMatch[0];
     }
-    // deprecated: Steam 프로필 URL에서 로비 링크 추출 - 헬망호 양식과 맞지 않음
     return null;
   } catch (error) {
     console.error(`[SEAF] 로비 링크 추출 실패 (${postId}):`, error);

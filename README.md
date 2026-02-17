@@ -2,7 +2,7 @@
 
 > **헬다이버즈 시리즈 갤러리 망호 실시간 감지 및 자동 참여 Chrome 확장 프로그램**
 
-해당 프로그램은 [SEAF-assistant]()의 경량화 버전으로, 일부 기능만을 추출하여 개선하였습니다.
+해당 프로그램은 [SEAF-assistant](https://github.com/Toddoward/SEAF-Assistant)의 경량화 버전으로, 일부 기능만을 추출하여 개선하였습니다.
 
 개선된 내용은 SEAF-assistant 정식 배포 시 반영됩니다.
 

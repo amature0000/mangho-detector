@@ -2,10 +2,8 @@ const SEAF_CONTENT = {
   /**
    * 페이지 타입 감지
    */
-  isWritePage: () => window.location.href.includes('board/write'),
   isListPage: () => window.location.href.includes('board/lists'),
   isViewPage: () => window.location.href.includes('board/view'),
-  isHelldiversseriesgallery: () => window.location.href.includes('id=helldiversseries'),
 
   /**
    * 토스트 알림 생성
