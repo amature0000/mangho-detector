@@ -4,7 +4,7 @@
 
 해당 프로그램은 [SEAF-assistant](https://github.com/Toddoward/SEAF-Assistant)의 경량화 버전으로, 일부 기능만을 추출하여 개선하였습니다.
 
-개선된 내용은 SEAF-assistant 정식 배포 시 반영됩니다.
+개선된 내용은 SEAF-assistant 정식 배포 버전에 반영됩니다.
 
 과거 tempermonkey script 버전은 `5124557` 커밋 시점을 참고하십시오.
 
