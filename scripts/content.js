@@ -150,7 +150,6 @@ const SEAF_CONTENT = {
         this.createToast(
           message.postId,
           message.title,
-          message.lobbyLink,
           message.toastDuration
         );
       }
