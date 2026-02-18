@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const manifestData = chrome.runtime.getManifest();
   const versionDisplay = document.getElementById('seaf-version-display');
   if (versionDisplay) {
-    versionDisplay.innerText = `MANGHO detector v${manifestData.version}`;
+    versionDisplay.innerText = `MANGHO detector`;
   }
   initSettingsPage();
 });
