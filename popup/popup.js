@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
   // 버전 정보 설정
-  const manifestData = chrome.runtime.getManifest();
   const versionDisplay = document.getElementById('seaf-version-display');
   if (versionDisplay) {
     versionDisplay.innerText = `MANGHO detector`;
