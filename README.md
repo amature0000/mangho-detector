@@ -42,8 +42,13 @@
 - background scanner ON/OFF
 - 탐색 주기 조정 (1~30초)
 - 토스트 알림 지속 시간 조정 (3~30초)
-> <img width="349" height="397" alt="화면 캡처 2026-02-18 152332" src="https://github.com/user-attachments/assets/fec6e2a7-8a79-4e4f-ad01-c048581f065f" />
+- 갤러리 id, 링크, 탭 이름을 수정해 다른 갤러리에 적용 가능
+> <img width="355" height="553" alt="image" src="https://github.com/user-attachments/assets/4e4cfd7c-4a50-45f2-a8e6-d8e297dba4bf" />
 
+### configuration-guide
+- 갤러리 id: 원하는 마이너 갤러리의 id를 입력
+- 망호 목록 링크: **망호 탭을 누른 다음** 페이지 주소를 복사
+- 탭 이름: 망호 탭 이름을 입력
 ---
 
 ## 개발 가이드라인
