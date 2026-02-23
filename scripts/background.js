@@ -3,7 +3,7 @@
  * 실시간 망호 게시글 감지
  */
 
-const MANGHO_LIST_URL = "https://gall.dcinside.com/mgallery/board/lists/?id=helldiversseries&sort_type=N&search_head=60";
+let MANGHO_LIST_URL = "https://gall.dcinside.com/mgallery/board/lists/?id=helldiversseries&sort_type=N&search_head=60";
 const DEADLINE = 5 * 60 * 1000; // 5분
 
 let lastSeenPostId = null;
@@ -13,6 +13,11 @@ let lastSeenPostId = null;
  */
 async function setupAlarm() {
   const { seaf_settings } = await chrome.storage.local.get(['seaf_settings']);
+
+  if(seaf_settings?.url) {
+    MANGHO_LIST_URL = seaf_settings.url;
+    // console.log(`[SEAF] URL 업데이트됨: ${MANGHO_LIST_URL}`);
+  }
   
   await chrome.alarms.clear("SEAF_DETECTION");
   
