@@ -25,7 +25,7 @@ const SEAF_CONTENT = {
     const toast = document.createElement('div');
     toast.className = 'seaf-toast-item';
 
-    const postUrl = `https://gall.dcinside.com/mgallery/board/view/?id=${gall_id}&no=${postId}`;
+    const postUrl = `https://gall.dcinside.com/mgallery/board/view/?id=${this.gall_id}&no=${postId}`;
 
     toast.innerHTML = `
       <div class="seaf-toast-header">📡 새 임무</div>

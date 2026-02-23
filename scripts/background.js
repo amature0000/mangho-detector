@@ -3,7 +3,7 @@
  * 실시간 망호 게시글 감지
  */
 
-let MANGHO_LIST_URL = "https://gall.dcinside.com/mgallery/board/lists/?id=helldiversseries&sort_type=N&search_head=60";
+let MANGHO_LIST_URL = "";
 const DEADLINE = 5 * 60 * 1000; // 5분
 
 let lastSeenPostId = null;
