@@ -1,4 +1,7 @@
 const SEAF_CONTENT = {
+  // localstorage 로드 값
+  prefix: "",
+  gall_id: "",
   /**
    * 페이지 타입 감지
    */
@@ -22,7 +25,7 @@ const SEAF_CONTENT = {
     const toast = document.createElement('div');
     toast.className = 'seaf-toast-item';
 
-    const postUrl = `https://gall.dcinside.com/mgallery/board/view/?id=helldiversseries&no=${postId}`;
+    const postUrl = `https://gall.dcinside.com/mgallery/board/view/?id=${this.gall_id}&no=${postId}`;
 
     toast.innerHTML = `
       <div class="seaf-toast-header">📡 새 임무</div>
@@ -86,8 +89,8 @@ const SEAF_CONTENT = {
       const subjectTd = post.querySelector('.gall_subject');
       const titleTd = post.querySelector('.gall_tit.ub-word');
 
-      // 헬망호 게시글만 처리
-      if (subjectTd && subjectTd.innerText.trim() === '헬망호' && titleTd) {
+      // prefix 게시글만 처리
+      if (subjectTd && subjectTd.innerText.trim() === this.prefix && titleTd) {
         const postLink = titleTd.querySelector('a')?.href;
         if (!postLink) return;
 
@@ -134,11 +137,22 @@ const SEAF_CONTENT = {
       }
     });
   },
+  /**
+   * 설정 로드
+   */
+  loadSettings: async function() {
+    const saved = await chrome.storage.local.get(['seaf_settings']);
+    if(saved.seaf_settings) {
+      this.prefix = saved.seaf_settings.prefix;
+      this.gall_id = saved.seaf_settings.gall_id;
+    }
+  },
 
   /**
    * 초기화
    */
-  init: function () {
+  init: async function () {
+    await this.loadSettings();
     // 목록 페이지
     if (this.isListPage() || this.isViewPage()) {
       this.enhanceListPage();
@@ -156,6 +170,5 @@ const SEAF_CONTENT = {
     });
   }
 };
-
 // 실행
 SEAF_CONTENT.init();

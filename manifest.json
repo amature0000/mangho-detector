@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "MANGHO detector",
-  "version": "0.0.0",
-  "description": "헬다이버즈 시리즈 갤러리 망호 실시간 감지 및 자동 참여 확장 프로그램",
+  "version": "0.1.0",
+  "description": "갤러리 망호 탐지 확장프로그램",
   
   "permissions": [
     "storage",

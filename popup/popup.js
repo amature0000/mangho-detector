@@ -16,13 +16,19 @@ async function initSettingsPage() {
   const pollingValue = document.getElementById('seaf-polling-value');
   const toastDurationSlider = document.getElementById('seaf-toast-duration-slider');
   const toastDurationValue = document.getElementById('seaf-toast-duration-value');
+  const urlValue = document.getElementById('seaf-mangho-url-text');
+  const prefixValue = document.getElementById('seaf-prefix-text');
+  const gallValue = document.getElementById('seaf-gall-id');
   const saveStatus = document.getElementById('seaf-save-status');
 
   // 기본 설정값
   let currentSettings = {
-    isDetectionActive: true,
+    isDetectionActive: false,
     pollingInterval: 5,
-    toastDuration: 6
+    toastDuration: 6,
+    gall_id: "helldiversseries",
+    url: "https://gall.dcinside.com/mgallery/board/lists/?id=helldiversseries&sort_type=N&search_head=60",
+    prefix: "헬망호"
   };
 
   // 저장된 설정 불러오기
@@ -37,6 +43,9 @@ async function initSettingsPage() {
   pollingValue.innerText = `${currentSettings.pollingInterval}초`;
   toastDurationSlider.value = currentSettings.toastDuration;
   toastDurationValue.innerText = `${currentSettings.toastDuration}초`;
+  urlValue.value = currentSettings.url;
+  prefixValue.value = currentSettings.prefix;
+  gallValue.value = currentSettings.gall_id;
 
   /**
    * 자동 저장 함수
@@ -52,7 +61,7 @@ async function initSettingsPage() {
    */
   detectionToggle.onchange = async (e) => {
     currentSettings.isDetectionActive = e.target.checked;
-    await autoSave();
+    lazySave();
   };
 
   /**
@@ -62,10 +71,7 @@ async function initSettingsPage() {
     const value = parseInt(e.target.value);
     pollingValue.innerText = `${value}초`;
     currentSettings.pollingInterval = value;
-  };
-
-  pollingSlider.onchange = async () => {
-    await autoSave();
+    lazySave();
   };
 
   /**
@@ -75,11 +81,43 @@ async function initSettingsPage() {
     const value = parseInt(e.target.value);
     toastDurationValue.innerText = `${value}초`;
     currentSettings.toastDuration = value;
+    lazySave();
   };
 
-  toastDurationSlider.onchange = async () => {
-    await autoSave();
+  /**
+   * 갤 id 변경
+   */
+  gallValue.oninput = async (e) => {
+    currentSettings.gall_id = e.target.value.trim();
+    lazySave();
+  }
+
+  /**
+   * 글목록 링크 변경
+   */
+  urlValue.oninput = async (e) => {
+    currentSettings.url = e.target.value.trim();
+    lazySave();
   };
+
+  /**
+   * prefix 변경
+   */
+  prefixValue.oninput = async (e) => {
+    currentSettings.prefix = e.target.value.trim();
+    lazySave();
+  };
+
+  /**
+   * 연속적인 저장을 방지하기 위한 lazy autosaver
+   */
+  let timer;
+  function lazySave() {
+    if(timer) clearTimeout(timer);
+    timer = setTimeout(async () => {
+      await autoSave();
+    }, 500);
+  }
 
   /**
    * 상태 메시지 표시
