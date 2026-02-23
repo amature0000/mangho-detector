@@ -4,7 +4,7 @@
 
 해당 프로그램은 [SEAF-assistant](https://github.com/Toddoward/SEAF-Assistant)의 경량화 버전으로, 일부 기능만을 추출하여 개선하였습니다.
 
-개선된 내용은 SEAF-assistant 정식 배포 버전에 반영됩니다.
+개선된 내용 중 핵심 수정사항은 SEAF-assistant 정식 배포 버전에 반영됩니다.
 
 과거 tampermonkey script 버전은 `5124557` 커밋 시점을 참고하십시오.
 
@@ -24,7 +24,7 @@
 
 ### Chrome Web Store
 ```
-SEAF-assistant 정식 배포를 확인하십시오. 이 프로젝트는 정식 배포 예정이 없습니다.
+정식 배포 예정
 ```
 ---
 ## 주요 기능
