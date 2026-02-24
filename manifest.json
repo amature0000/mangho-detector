@@ -11,8 +11,7 @@
   ],
   
   "host_permissions": [
-    "https://gall.dcinside.com/*",
-    "https://steamcommunity.com/*"
+    "https://gall.dcinside.com/*"
   ],
   
   "icons": {
