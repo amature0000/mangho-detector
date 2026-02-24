@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "MANGHO detector",
   "version": "0.1.0",
-  "description": "갤러리 망호 탐지 확장프로그램",
+  "description": "게임 마이너 갤러리의 게임 참가 스팀링크를 탐지하고 참가 편의성을 향상시키는 확장프로그램",
   
   "permissions": [
     "storage",
