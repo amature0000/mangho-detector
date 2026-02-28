@@ -8,25 +8,18 @@
 ## 주요 기능
 
 ### foreground scanner
-- 게시글 목록에서 모집글 제목에 `참가` 버튼을 추가해 즉시 참여 기능 제공
+- 게시글 목록에서 모집글 제목에 `참가` 버튼을 추가해 즉시 참여 기능
 > <img width="356" height="55" alt="화면 캡처 2026-02-18 152257" src="https://github.com/user-attachments/assets/64e59525-f492-4944-9aa4-d5a849e3af64" />
 
 ### background scanner
 - 주기적으로 최신 게시글 탐색
-- 신규 모집글 감지 시 토스트 알림 제공
+- 신규 모집글 감지 시 토스트 알림
 > <img width="375" height="133" alt="화면 캡처 2026-02-18 152342" src="https://github.com/user-attachments/assets/bc12a258-0c17-4984-97ae-7bc9fd5bb6c1" />
 
 ### configuration
-- background scanner ON/OFF
-- 탐색 주기 조정 (2~30초)
-- 토스트 알림 지속 시간 조정 (3~30초)
-- 갤러리 id, 링크, 탭 이름을 수정해 다른 갤러리에 적용 가능
+- background scanner 설정
 > <img width="355" height="553" alt="image" src="https://github.com/user-attachments/assets/4e4cfd7c-4a50-45f2-a8e6-d8e297dba4bf" />
 
-### configuration-guide
-- 갤러리 id: 원하는 마이너 갤러리의 id를 입력
-- 망호 목록 링크: **망호 탭을 누른 다음** 페이지 주소를 복사
-- 탭 이름: 망호 탭 이름을 입력
 ---
 
 ## 개발 가이드라인
