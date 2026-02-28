@@ -61,7 +61,7 @@ async function initSettingsPage() {
    */
   detectionToggle.onchange = async (e) => {
     currentSettings.isDetectionActive = e.target.checked;
-    lazySave();
+    autoSave();
   };
 
   /**
