@@ -148,7 +148,7 @@ async function processNewPost(post) {
       type: "SEAF_NEW_POST",
       postId: id,
       title: title,
-      toastDuration: (seaf_settings.toastDuration || 6) * 1000 // 초 → 밀리초 변환
+      toastDuration: seaf_settings.toastDuration * 1000 // 초 → 밀리초 변환
     }).catch((e) => {
       console.log(`[SEAF] ${tab.id} 전송 실패: ${e}`);
     });
