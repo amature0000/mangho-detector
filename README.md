@@ -5,24 +5,6 @@
 과거 tampermonkey script 버전은 `5124557` 커밋 시점을 참고하십시오.
 
 ---
-
-## 설치 방법
-
-### 소스코드 설치
-1. 녹색 `<> Code` 버튼을 누르고 Download ZIP 으로 압축파일 다운로드
-  > <img width="428" height="359" alt="image" src="https://github.com/user-attachments/assets/4535e1b1-1d68-4af9-a606-3792bcbe73f1" />
-
-2. 압축 해제
-3. Chrome 주소창에 `chrome://extensions/` 입력
-4. **개발자 모드** 활성화
-5. **압축해제된 확장 프로그램을 로드합니다** 클릭
-6. 압축 해제한 폴더 선택
-
-### Chrome Web Store
-```
-정식 배포 예정 없음
-```
----
 ## 주요 기능
 
 ### foreground scanner
