@@ -2,8 +2,6 @@
 
 해당 프로그램은 [SEAF-assistant](https://github.com/Toddoward/SEAF-Assistant)의 경량화 버전으로, 일부 기능만을 추출하여 개선하였습니다.
 
-개선된 내용 중 핵심 수정사항은 SEAF-assistant 정식 배포 버전에 반영됩니다.
-
 과거 tampermonkey script 버전은 `5124557` 커밋 시점을 참고하십시오.
 
 ---
@@ -38,7 +36,7 @@
 
 ### configuration
 - background scanner ON/OFF
-- 탐색 주기 조정 (1~30초)
+- 탐색 주기 조정 (2~30초)
 - 토스트 알림 지속 시간 조정 (3~30초)
 - 갤러리 id, 링크, 탭 이름을 수정해 다른 갤러리에 적용 가능
 > <img width="355" height="553" alt="image" src="https://github.com/user-attachments/assets/4e4cfd7c-4a50-45f2-a8e6-d8e297dba4bf" />

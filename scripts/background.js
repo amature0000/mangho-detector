@@ -5,29 +5,38 @@
 
 let MANGHO_LIST_URL = "";
 const DEADLINE = 5 * 60 * 1000; // 5분
-
-let lastSeenPostId = null;
+let lastCheckTime = 0;
 
 /**
- * chrome.alarms 설정
+ * 설정값 로드
  */
-async function setupAlarm() {
+async function initSettings() {
   const { seaf_settings } = await chrome.storage.local.get(['seaf_settings']);
-
-  if(seaf_settings?.url) {
+  if (seaf_settings?.url) {
     MANGHO_LIST_URL = seaf_settings.url;
-    // console.log(`[SEAF] URL 업데이트됨: ${MANGHO_LIST_URL}`);
   }
-  
-  await chrome.alarms.clear("SEAF_DETECTION");
-  
-  if (seaf_settings?.isDetectionActive) {
-    const intervalInMinutes = Math.max(0.1, (seaf_settings.pollingInterval || 5) / 60);
-    chrome.alarms.create("SEAF_DETECTION", { periodInMinutes: intervalInMinutes });
-    console.log(`[SEAF] 감지 시작: ${seaf_settings.pollingInterval}초 간격`);
-  } else {
-    console.log('[SEAF] 감지 중지');
-  }
+
+  await createOffscreen();
+
+  let interval = (seaf_settings.pollingInterval || 5) * 1000;
+  if (!seaf_settings?.isDetectionActive) interval = 0;
+
+  chrome.runtime.sendMessage({
+    type: "CONTROL_HEARTBEAT",
+    interval: interval
+  })
+}
+
+/**
+ * offscreen 생성
+ */
+async function createOffscreen() {
+  if (await chrome.offscreen.hasDocument()) return;
+  await chrome.offscreen.createDocument({
+    url: 'scripts/offscreen.html',
+    reasons: ['DOM_PARSER'],
+    justification: 'monitoring&sending message'
+  });
 }
 
 /**
@@ -56,11 +65,7 @@ async function extractLobbyLink(postId) {
  */
 async function performDetection() {
   try {
-    const { seaf_settings } = await chrome.storage.local.get(['seaf_settings']);
-    
-    if (!seaf_settings?.isDetectionActive) {
-      return;
-    }
+    const { seaf_settings, lastSeenPostId } = await chrome.storage.local.get(['seaf_settings', 'lastSeenPostId']);
 
     // 디시인사이드 탭이 열려있는지 확인
     const tabs = await chrome.tabs.query({ 
@@ -92,9 +97,9 @@ async function performDetection() {
     }
 
     // 첫 실행 시 초기화만 하고 종료
-    if (lastSeenPostId === null) {
-      lastSeenPostId = posts[0].id;
-      console.log(`[SEAF] 초기화 완료. 마지막 게시글 ID: ${lastSeenPostId}`);
+    if (lastSeenPostId === undefined) {
+      await chrome.storage.local.set({lastSeenPostId: posts[0].id});
+      console.log(`[SEAF] 초기화 완료. 마지막 게시글 ID: ${posts[0].id}`);
       return;
     }
 
@@ -121,8 +126,8 @@ async function performDetection() {
       }
       
       // 가장 최신 게시글 ID로 업데이트
-      lastSeenPostId = posts[0].id;
-      console.log(`[SEAF] lastSeenPostId 업데이트: ${lastSeenPostId}`);
+      await chrome.storage.local.set({ lastSeenPostId: posts[0].id });
+      console.log(`[SEAF] lastSeenPostId 업데이트: ${posts[0].id}`);
     }
 
   } catch (error) {
@@ -157,17 +162,25 @@ async function processNewPost(post, settings) {
 }
 
 /**
+ * 하트비트 제어 로직
+ */
+async function handleHeartbeat() {
+  if (!MANGHO_LIST_URL) await initSettings();
+  console.log(`[SEAF] 페이지 로드 요청`);
+  performDetection();
+}
+
+/**
  * 이벤트 리스너
  */
-chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === "SEAF_DETECTION") {
-    performDetection();
-  }
-});
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.type === "HEARTBEAT_CHECK") {
+    handleHeartbeat();
+  }
+
   if (request.type === "SETTINGS_UPDATED") {
-    setupAlarm();
+    initSettings();
+    lastCheckTime = 0;
   }
   
   if (request.type === "GET_LOBBY_LINK") {
@@ -178,5 +191,4 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-// 확장 프로그램 시작 시 알람 설정
-setupAlarm();
+initSettings();
