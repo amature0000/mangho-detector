@@ -13,8 +13,6 @@ async function startHeartbeat(interval) {
   }, interval);
 }
 
-startHeartbeat();
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === "CONTROL_HEARTBEAT") {
     startHeartbeat(request.interval);
