@@ -93,18 +93,14 @@ async function performDetection() {
       return;
     }
 
-    // 첫 실행 시 초기화만 하고 종료
-    if (lastSeenPostId === undefined) {
-      await chrome.storage.local.set({lastSeenPostId: posts[0].id});
-      console.log(`[SEAF] 초기화 완료. 마지막 게시글 ID: ${posts[0].id}`);
-      return;
-    }
-
     const now = Date.now();
     // 신규 게시글 필터링 
     const newPosts = posts.filter(p => {
       // ID가 더 큰 것만
-      const isNew = p.id > lastSeenPostId;
+      let isNew = true;
+      if(lastSeenPostId) {
+        isNew = p.id > lastSeenPostId;
+      }
       // 최근 n분 이내
       let isRecent = true;
       if (p.fullDateStr) {
