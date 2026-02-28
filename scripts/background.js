@@ -131,7 +131,7 @@ async function performDetection() {
 /**
  * 신규 게시글 처리
  */
-async function processNewPost(post,) {
+async function processNewPost(post) {
   const { seaf_settings } = await chrome.storage.local.get(['seaf_settings']);
   const { id, title } = post;
   
