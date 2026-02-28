@@ -12,14 +12,13 @@ let lastCheckTime = 0;
  */
 async function initSettings() {
   const { seaf_settings } = await chrome.storage.local.get(['seaf_settings']);
-  if (seaf_settings?.url) {
-    MANGHO_LIST_URL = seaf_settings.url;
-  }
+  if (seaf_settings?.url) MANGHO_LIST_URL = seaf_settings.url;
 
   await createOffscreen();
 
-  let interval = (seaf_settings.pollingInterval || 5) * 1000;
-  if (!seaf_settings?.isDetectionActive) interval = 0;
+  let interval = 0;
+  if (seaf_settings?.isDetectionActive)
+    interval = seaf_settings.pollingInterval * 1000;
 
   chrome.runtime.sendMessage({
     type: "CONTROL_HEARTBEAT",
@@ -65,16 +64,14 @@ async function extractLobbyLink(postId) {
  */
 async function performDetection() {
   try {
-    const { seaf_settings, lastSeenPostId } = await chrome.storage.local.get(['seaf_settings', 'lastSeenPostId']);
-
     // 디시인사이드 탭이 열려있는지 확인
     const tabs = await chrome.tabs.query({ 
       url: "https://*.dcinside.com/*" 
     });
-    
-    if (tabs.length === 0) {
-      return; // 디시 탭 없으면 스킵
-    }
+    if (tabs.length === 0) return;
+
+    // 설정 로드
+    const { lastSeenPostId } = await chrome.storage.local.get(['lastSeenPostId']);
 
     // 망호 목록 크롤링
     const response = await fetch(MANGHO_LIST_URL);
@@ -122,7 +119,7 @@ async function performDetection() {
     if (newPosts.length > 0) {
       // 오래된 것부터 처리
       for (const post of newPosts.reverse()) {
-        await processNewPost(post, seaf_settings);
+        await processNewPost(post);
       }
       
       // 가장 최신 게시글 ID로 업데이트
@@ -138,7 +135,8 @@ async function performDetection() {
 /**
  * 신규 게시글 처리
  */
-async function processNewPost(post, settings) {
+async function processNewPost(post,) {
+  const { seaf_settings } = await chrome.storage.local.get(['seaf_settings']);
   const { id, title } = post;
   
   console.log(`[SEAF] 새 게시글 발견: ${id}`);
@@ -154,9 +152,9 @@ async function processNewPost(post, settings) {
       type: "SEAF_NEW_POST",
       postId: id,
       title: title,
-      toastDuration: (settings.toastDuration || 6) * 1000 // 초 → 밀리초 변환
-    }).catch(() => {
-      console.log(`[SEAF] ${tab.id} 전송 실패`);
+      toastDuration: (seaf_settings.toastDuration || 6) * 1000 // 초 → 밀리초 변환
+    }).catch((e) => {
+      console.log(`[SEAF] ${tab.id} 전송 실패: ${e}`);
     });
   }
 }
