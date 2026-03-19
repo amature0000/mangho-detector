@@ -42,8 +42,9 @@ async function createOffscreen() {
  * 게시글 id로부터 Steam 로비 링크 추출
  */
 async function extractLobbyLink(postId) {
+  const { seaf_settings } = await chrome.storage.local.get(['seaf_settings']);
   try {
-    const viewUrl = `https://gall.dcinside.com/mgallery/board/view/?id=helldiversseries&no=${postId}`;
+    const viewUrl = `https://gall.dcinside.com/mgallery/board/view/?id=${seaf_settings.gall_id}&no=${postId}`;
     const response = await fetch(viewUrl);
     const html = await response.text();
     
