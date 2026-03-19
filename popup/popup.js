@@ -89,6 +89,7 @@ async function initSettingsPage() {
    */
   gallValue.oninput = async (e) => {
     currentSettings.gall_id = e.target.value.trim();
+    clearid();
     lazySave();
   }
 
@@ -97,6 +98,7 @@ async function initSettingsPage() {
    */
   urlValue.oninput = async (e) => {
     currentSettings.url = e.target.value.trim();
+    clearid();
     lazySave();
   };
 
@@ -105,8 +107,16 @@ async function initSettingsPage() {
    */
   prefixValue.oninput = async (e) => {
     currentSettings.prefix = e.target.value.trim();
+    clearid();
     lazySave();
   };
+
+  /**
+   * configuration 접근 시 글 id 초기화
+   */
+  function clearid() {
+    chrome.storage.local.set({ lastSeenPostId: 0 });
+  }
 
   /**
    * 연속적인 저장을 방지하기 위한 lazy autosaver
