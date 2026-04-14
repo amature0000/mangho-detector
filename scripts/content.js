@@ -28,7 +28,7 @@ const SEAF_CONTENT = {
     const postUrl = `https://gall.dcinside.com/mgallery/board/view/?id=${this.gall_id}&no=${postId}`;
 
     toast.innerHTML = `
-      <div class="seaf-toast-header">📡 새 임무</div>
+      <div class="seaf-toast-header">📡 새로운 게임</div>
       <a href="${postUrl}" target="_blank" class="seaf-toast-body" title="${title}">
         ${title}
       </a>
